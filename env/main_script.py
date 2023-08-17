@@ -13,7 +13,8 @@ def index():
 
 @app.route('/game', methods=['POST'])
 def game():
-    return render_template('game.html')
+    numberGuess = "test"
+    return render_template('game.html', numberGuess = numberGuess)
 
 
 
