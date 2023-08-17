@@ -9,6 +9,14 @@ app = Flask(__name__, template_folder='templateFiles', static_folder='staticFile
 def index():
     return render_template('login.html')
 
+
+
+@app.route('/game', methods=['POST'])
+def game():
+    return render_template('game.html')
+
+
+
 @app.route('/register', methods=['POST'])
 def register():
     # Retrieve form data

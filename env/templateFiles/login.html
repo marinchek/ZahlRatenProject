@@ -4,7 +4,7 @@
     <title>Login Form</title>
     <link rel="stylesheet" type="text/css" href="/staticFiles/main.css">
 </head>
-<body>
+<>
     <h2>Login Form</h2>
     <form action="/login" method="post">
         <label for="username">Username:</label>
@@ -12,8 +12,9 @@
         
         <label for="password">Password:</label>
         <input type="password" id="password" name="password" required><br><br>
-        
-        <input type="submit" value="Login">
+    </form>
+    <form action="/game" method="post">
+        <Button type="submit">Login</Button> 
     </form>
     <form action="/register" method="post">
         <button type="submit">Not registered</button>
