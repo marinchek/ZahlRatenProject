@@ -6,7 +6,7 @@
 </head>
 <body>
     <h2>Login Form</h2>
-    <form action="process_login.php" method="post">
+    <form action="/login" method="post">
         <label for="username">Username:</label>
         <input type="text" id="username" name="username" required><br><br>
         
@@ -14,7 +14,9 @@
         <input type="password" id="password" name="password" required><br><br>
         
         <input type="submit" value="Login">
-        <input type="button" value="Not registered?">
+    </form>
+    <form action="/register" method="post">
+        <button type="submit">Not registered</button>
     </form>
 </body>
 </html>

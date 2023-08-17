@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
  
 # WSGI Application
 # Provide template folder name
@@ -12,14 +12,17 @@ def index():
 @app.route('/register', methods=['POST'])
 def register():
     # Retrieve form data
-    username = request.form['username']
-    password1 = request.form['password1']
-    password2 = request.form['password2']
-    button = request.form['button']
-    print(button)
+    # username = request.form['username']
+    # password1 = request.form['password1']
+    # password2 = request.form['password2']
+    # button = request.form['button']
     # Add your function logic here to process the registration
     
-    return "Registration successful!"  # Or redirect to another page
+    return render_template('register.html')  # Or redirect to another page
+
+# def go_to_other_page():
+#     return redirect(url_for('index'))
+
 
 if __name__ == '__main__':
     app.run(debug=True)
