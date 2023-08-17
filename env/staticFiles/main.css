@@ -1,17 +1,46 @@
 body {
-    background: Linen;
-    margin-top: 50px;
-    margin-left: 100px;
-    }
-   
-  h1 {
-    font-family: Verdana, Geneva, sans-serif;
-    font-size: 2.5em;
-    color: FireBrick;
-    }
-   
-  p {
-    font-family: Georgia, serif;
-    font-size: 1.2em;
-    color: DarkSlateGray;
-    }
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+}
+
+h2 {
+  text-align: center;
+  margin-top: 20px;
+}
+
+form {
+  background-color: #ffffff;
+  width: 300px;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+label {
+  font-weight: bold;
+}
+
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+input[type="submit"] {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+input[type="submit"]:hover {
+  background-color: #0056b3;
+}
