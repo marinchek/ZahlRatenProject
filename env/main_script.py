@@ -2,8 +2,8 @@ from flask import Flask, render_template, request, redirect, url_for, session
 from random import randint, random
 import random
  
-
-
+#---------------------------------------------------------------------Definieren von Variablen zur Ausgabe von Phrasen---------------------------------------------------------------------
+#Phrasen, die ausgegeben werden, wenn der Spieler zu niedrig geraten hat
 low_phrases = [
     "Oh no, it's too low!",
     "That's lower than a snake's belly!",
@@ -51,6 +51,8 @@ low_phrases = [
     "Down, down, down your guess goes! Too low for the game.",
     "Low guess alert! Time to shoot for the stars instead!"
 ]
+
+#Phrasen, die ausgegeben werden, wenn der Spieler richtig geraten hat
 correct_phrases = [
     "You nailed it! Well done!",
     "Jackpot! That's the correct number!",
@@ -61,6 +63,7 @@ correct_phrases = [
     "You've got it! That's the correct number!",
     "Bravo! Your guess is right on the money!"
 ]
+#Phrasen, die ausgegeben werden, wenn der Spieler zu hoch geraten hat
 high_phrases = [
     "Whoa there, too high!",
     "You're aiming for the stars, but Your number is too high!",
@@ -118,9 +121,17 @@ high_phrases = [
     "Is your guess floating in the atmosphere? It's too high!",
 ]
 
+
+#---------------------------------------------------------------------Ende Variablen-Definition---------------------------------------------------------------------
+
+
+#---------------------------------------------Start der App per Flask---------------------------------------------
 app = Flask(__name__, template_folder='templateFiles', static_folder='staticFiles')
 app.secret_key = '300102'
 @app.route('/')
+
+
+#---------------------------------------------Start Definition der Routen---------------------------------------------
 def index():
     return render_template('login.html')
 
