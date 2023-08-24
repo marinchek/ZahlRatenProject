@@ -137,6 +137,8 @@ def game():
         level = request.args['level']
         if level == 'easy':
             min_range, max_range = 1, 50
+        elif level == 'dev':
+            min_range, max_range = 1, 1
         elif level == 'medium':
             min_range, max_range = 1, 500
         elif level == 'hard':
