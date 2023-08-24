@@ -132,7 +132,8 @@ def welcomeScreen():
 def game():
     fromUntilMessage = ""
     number_guess = ""
-    response = ""
+    response = ''
+    number = ''
 
     if 'level' in request.args:
         level = request.args['level']
@@ -150,7 +151,7 @@ def game():
         
         fromUntilMessage = "Guess a number between " + str(min_range) + " and " + str(max_range) + "!"    
 
-        if 'randomNumber' not in session or  number_guess == 0:
+        if 'randomNumber' not in session: #or  number_guess == 0:
             session['randomNumber'] = randint(min_range, max_range)
             print(session['randomNumber'])
     
@@ -162,6 +163,7 @@ def game():
             number_guess = "Your number is not in range!"
         elif user_guess == session['randomNumber']:
             number_guess = random.choice(correct_phrases)
+            number = session['randomNumber']
             session.pop('randomNumber', None)
             response = 'correct'
         elif user_guess < session['randomNumber'] and user_guess > min_range:
@@ -169,7 +171,7 @@ def game():
         elif user_guess > session['randomNumber'] and user_guess < max_range:
             number_guess = random.choice(high_phrases)
     
-    return render_template('game.html', numberGuess=number_guess, fromUntilMessage=fromUntilMessage, response=response)
+    return render_template('game.html', numberGuess=number_guess, fromUntilMessage=fromUntilMessage, response=response, number=number)
 
 
 @app.route('/register', methods=['POST'])
