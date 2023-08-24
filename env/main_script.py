@@ -124,7 +124,7 @@ app.secret_key = '300102'
 def index():
     return render_template('login.html')
 
-@app.route('/welcomeScreen', methods=['POST'])
+@app.route('/welcomeScreen', methods=['GET', 'POST'])
 def welcomeScreen():
     return render_template('welcomeScreen.html')
 
@@ -132,6 +132,7 @@ def welcomeScreen():
 def game():
     fromUntilMessage = ""
     number_guess = ""
+    response = ""
 
     if 'level' in request.args:
         level = request.args['level']
@@ -162,12 +163,13 @@ def game():
         elif user_guess == session['randomNumber']:
             number_guess = random.choice(correct_phrases)
             session.pop('randomNumber', None)
+            response = 'correct'
         elif user_guess < session['randomNumber'] and user_guess > min_range:
             number_guess = random.choice(low_phrases)
         elif user_guess > session['randomNumber'] and user_guess < max_range:
             number_guess = random.choice(high_phrases)
     
-    return render_template('game.html', numberGuess=number_guess, fromUntilMessage=fromUntilMessage)
+    return render_template('game.html', numberGuess=number_guess, fromUntilMessage=fromUntilMessage, response=response)
 
 
 @app.route('/register', methods=['POST'])
