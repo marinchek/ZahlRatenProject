@@ -140,9 +140,9 @@ def index():
 def welcomeScreen():
     username = request.form.get('username', 0)
     password = request.form.get('password', 0)
-    if (CheckIfUserExists(username, password)):
-        session['username'] = username
-        print(session['username'])
+    # if (CheckIfUserExists(username, password)):
+    #     session['username'] = username
+    #     print(session['username'])
     print(username)
     return render_template('welcomeScreen.html')
 
