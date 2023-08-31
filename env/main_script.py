@@ -142,7 +142,7 @@ def game():
     number_guess = ""
     response = ''
     number = ''
-    counter = 0
+    counterMessage = ''
 
     if 'level' in request.args:
         level = request.args['level']
@@ -152,9 +152,7 @@ def game():
             min_range, max_range = 1, 1
 
         if 'counter' not in session:
-            counter = session['counter'] = 0
-        
-        fromUntilMessage = "Guess a number between " + str(min_range) + " and " + str(max_range) + "! Tries: " + str(counter)   
+            session['counter'] = 0
 
         if 'randomNumber' not in session: #or  number_guess == 0:
             session['randomNumber'] = randint(min_range, max_range)
@@ -166,20 +164,23 @@ def game():
             number_guess = "You have not entered any number!"
         elif int(user_guess) > max_range or int(user_guess) < min_range:
             number_guess = "Your number is not in range!"
-            counter + 1
         elif int(user_guess) == session['randomNumber']:
             number_guess = random.choice(correct_phrases)
             number = session['randomNumber']
+            session.pop('counter', None)
             session.pop('randomNumber', None)
             response = 'correct'
         elif int(user_guess) < session['randomNumber'] and int(user_guess) > min_range:
             number_guess = random.choice(low_phrases)
-            counter + 1
+            session['counter'] += 1
         elif int(user_guess) > session['randomNumber'] and int(user_guess) < max_range:
             number_guess = random.choice(high_phrases)
-            counter + 1
-    
-    return render_template('game.html', numberGuess=number_guess, fromUntilMessage=fromUntilMessage, response=response, number=number)
+            session['counter'] += 1
+
+    fromUntilMessage = "Guess a number between " + str(min_range) + " and " + str(max_range) + "!"
+    counterMessage = "Tries: " + str(session['counter'])
+
+    return render_template('game.html', numberGuess=number_guess, fromUntilMessage=fromUntilMessage, counterMessage=counterMessage, response=response, number=number)
 
 
 @app.route('/register', methods=['POST'])
