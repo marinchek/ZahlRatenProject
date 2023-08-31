@@ -153,16 +153,9 @@ def game():
     if 'level' in request.args:
         level = request.args['level']
         if level == 'easy':
-            min_range, max_range = 1, 50
+            min_range, max_range = 1, 100
         elif level == 'dev':
             min_range, max_range = 1, 1
-        elif level == 'medium':
-            min_range, max_range = 1, 500
-        elif level == 'hard':
-            min_range, max_range = 1, 1000
-        else:
-            # Default to medium level if level is not recognized
-            min_range, max_range = 1, 500
         
         fromUntilMessage = "Guess a number between " + str(min_range) + " and " + str(max_range) + "!"    
 

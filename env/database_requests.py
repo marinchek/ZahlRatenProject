@@ -91,7 +91,7 @@ def CreateDatabase():
     cursor.execute(createHighscoresTableString)
     return "Database created"
 
-MakeDbTransaction(CreateDatabase)
+#MakeDbTransaction(CreateDatabase)
 
 """" 
 #dbConnection = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};ENCRYPT=no;SERVER=127.0.0.1;PORT=3306;Direct=True;DATABASE=Guessing_Game;UID=root')
