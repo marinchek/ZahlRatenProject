@@ -47,7 +47,6 @@ def MakeDbTransaction(transaction):
     returnMessage = transaction()
     dbConnection.commit()
     #except:
-    returnMessage = "Couldn't commit transaction"
     dbConnection.close()
     print(returnMessage)
     return returnMessage
@@ -67,13 +66,14 @@ def GenerateDbConnectionAndCursor():
 def CreateDatabase():
     createDatabaseString = """CREATE DATABASE IF NOT EXISTS Guessing_Game;"""
 
+    goToDatabseString = """USE Guessing_Game"""
+
     createAccountsTableString = """
-    USE Guessing_Game;
     CREATE TABLE IF NOT EXISTS Accounts (
-        user_id int(11) NOT NULL AUTO_INCREMENT,
+        account_id int(11) NOT NULL AUTO_INCREMENT,
         username varchar(64) NOT NULL,
         password varchar(255) NOT NULL,
-        PRIMARY KEY (user_id)
+        PRIMARY KEY (account_id)
     )
     """
 
@@ -81,17 +81,26 @@ def CreateDatabase():
     CREATE TABLE IF NOT EXISTS Highscores (
         score int(11) NOT NULL,
         time_played int(11) NOT NULL,
-        timestamp datetime NOT NULL,
-        user_id varchar(64),
-        FOREIGN KEY user_id REFERENCES Accounts(user_id),
-        PRIMARY KEY (timestamp, user_id)
-    );"""
+        date_time datetime DEFAULT CURRENT_TIMESTAMP,
+        account_accountid int(11) NOT NULL,
+        CONSTRAINT highscore_account FOREIGN KEY (account_accountid) REFERENCES Accounts(account_id),
+        PRIMARY KEY (time_played, account_accountid)
+    )"""
+
     cursor.execute(createDatabaseString)
+    cursor.execute(goToDatabseString)
     cursor.execute(createAccountsTableString)
     cursor.execute(createHighscoresTableString)
     return "Database created"
 
+<<<<<<< HEAD
 #MakeDbTransaction(CreateDatabase)
+=======
+#Create he Database & Tables in MySQL
+MakeDbTransaction(CreateDatabase)
+>>>>>>> da55940756379c0b555856c7a1c39a859166612d
+
+
 
 """" 
 #dbConnection = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};ENCRYPT=no;SERVER=127.0.0.1;PORT=3306;Direct=True;DATABASE=Guessing_Game;UID=root')
