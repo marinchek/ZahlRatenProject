@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 from random import randint, random
+from database_requests import *
 import random
  
 #---------------------------------------------------------------------Definieren von Variablen zur Ausgabe von Phrasen---------------------------------------------------------------------
@@ -137,6 +138,9 @@ def index():
 
 @app.route('/welcomeScreen', methods=['GET', 'POST'])
 def welcomeScreen():
+    username = request.form.get('username', 0)
+    password = request.form.get('password', 0)
+    print(username)
     return render_template('welcomeScreen.html')
 
 @app.route('/game', methods=['GET', 'POST'])
@@ -187,7 +191,6 @@ def game():
 
 @app.route('/register', methods=['POST'])
 def register():
-
     return render_template('register.html')  # Or redirect to another page
 
 @app.route('/registerUserToDatabase', methods=['POST'])
