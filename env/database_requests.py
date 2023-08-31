@@ -93,6 +93,7 @@ def CreateDatabase():
     cursor.execute(createHighscoresTableString)
     return "Database created"
 
+#MakeDbTransaction(CreateDatabase)
 
 #Create he Database & Tables in MySQL
 # MakeDbTransaction(CreateDatabase)
