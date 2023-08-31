@@ -140,9 +140,9 @@ def index():
 def welcomeScreen():
     username = request.form.get('username', 0)
     password = request.form.get('password', 0)
-    if (CheckIfUserExists(username, password)):
-        session['username'] = username
-        print(session['username'])
+    #if (CheckIfUserExists(username, password)):
+    #    session['username'] = username
+    #    print(session['username'])
     print(username)
     return render_template('welcomeScreen.html')
 
@@ -170,16 +170,16 @@ def game():
         user_guess = request.form.get('user_guess', 0)
         if user_guess == "0" or user_guess == "" or user_guess == None:
             number_guess = "You have not entered any number!"
-        elif user_guess > max_range or user_guess < min_range:
+        elif int(user_guess) > max_range or int(user_guess) < min_range:
             number_guess = "Your number is not in range!"
-        elif user_guess == session['randomNumber']:
+        elif int(user_guess) == session['randomNumber']:
             number_guess = random.choice(correct_phrases)
             number = session['randomNumber']
             session.pop('randomNumber', None)
             response = 'correct'
-        elif user_guess < session['randomNumber'] and user_guess > min_range:
+        elif int(user_guess) < session['randomNumber'] and int(user_guess) > min_range:
             number_guess = random.choice(low_phrases)
-        elif user_guess > session['randomNumber'] and user_guess < max_range:
+        elif int(user_guess) > session['randomNumber'] and int(user_guess) < max_range:
             number_guess = random.choice(high_phrases)
     
     return render_template('game.html', numberGuess=number_guess, fromUntilMessage=fromUntilMessage, response=response, number=number)
