@@ -95,6 +95,8 @@ def CreateDatabase():
 
 #MakeDbTransaction(CreateDatabase)
 
+#Create he Database & Tables in MySQL
+# MakeDbTransaction(CreateDatabase)
 
 
 """" 
