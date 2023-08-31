@@ -143,11 +143,12 @@ def game():
     response = ''
     number = ''
     counterMessage = ''
+    counter = 0
 
     if 'level' in request.args:
         level = request.args['level']
         if level == 'easy':
-            min_range, max_range = 1, 100
+            min_range, max_range = 0, 100
         elif level == 'dev':
             min_range, max_range = 1, 1
 
@@ -178,7 +179,9 @@ def game():
             session['counter'] += 1
 
     fromUntilMessage = "Guess a number between " + str(min_range) + " and " + str(max_range) + "!"
-    counterMessage = "Tries: " + str(session['counter'])
+    if ('counter' not in session):
+        counterMessage = "test"
+    else: counterMessage = "Tries: " + str(session['counter'])
 
     return render_template('game.html', numberGuess=number_guess, fromUntilMessage=fromUntilMessage, counterMessage=counterMessage, response=response, number=number)
 
