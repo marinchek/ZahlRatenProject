@@ -132,6 +132,8 @@ def handleLogout():
 
 @app.route('/welcomeScreen', methods=['GET', 'POST'])
 def welcomeScreen():
+    if "username" or "password" not in session:
+        return render_template("welcomeScreen.html")
     username = request.form.get('username')
     password = request.form.get('password')
     if (CheckIfUserExists([username, password])):
@@ -149,6 +151,7 @@ def game():
     counterMessage = ''
     counter = 0
     finalGuess = False
+    triesMessage = ""
 
     if 'level' in request.args:
         level = request.args['level']
@@ -179,6 +182,7 @@ def game():
             session.pop('counter', None)
             session.pop('randomNumber', None)
             response = 'correct'
+            triesMessage = "You needed " + str(counter) + " tries to guess the number!"
         elif int(user_guess) < session['randomNumber'] and int(user_guess) > min_range:
             number_guess = random.choice(low_phrases)
             session['counter'] += 1
@@ -191,7 +195,7 @@ def game():
         counterMessage = "Tries: " + str(counter)
     else: counterMessage = "Tries: " + str(session['counter'])
 
-    return render_template('game.html', numberGuess=number_guess, fromUntilMessage=fromUntilMessage, counterMessage=counterMessage, response=response, number=number)
+    return render_template('game.html', numberGuess=number_guess, fromUntilMessage=fromUntilMessage, counterMessage=counterMessage, response=response, number=number, triesMessage=triesMessage)
 
 
 @app.route('/register', methods=['POST'])

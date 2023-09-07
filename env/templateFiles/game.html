@@ -30,6 +30,7 @@
         {% if response == 'correct': %}
         <div id="correct">
             <h1>{{number}} was the number!</h1>
+            <h2>{{triesMessage}}</h2>
             <form action="/welcomeScreen">
                 <button>Play again!</button>
             </form>
