@@ -132,13 +132,13 @@ def handleLogout():
 
 @app.route('/welcomeScreen', methods=['GET', 'POST'])
 def welcomeScreen():
-    username = request.form.get('username', 0)
-    password = request.form.get('password', 0)
-    #if (CheckIfUserExists(username, password)):
-    #    session['username'] = username
-    #    print(session['username'])
-    print(username)
-    return render_template('welcomeScreen.html')
+    username = request.form.get('username')
+    password = request.form.get('password')
+    if (CheckIfUserExists([username, password])):
+       session['username'] = username
+       print(session['username'])
+       return render_template('welcomeScreen.html')
+    else: return render_template("login.html")
 
 @app.route('/game', methods=['GET', 'POST'])
 def game():
@@ -198,11 +198,18 @@ def game():
 def register():
     return render_template('register.html')  # Or redirect to another page
 
-@app.route('/registerUserToDatabase', methods=['POST'])
+@app.route('/registerUserToDatabase', methods=['POST', 'GET'])
 def registerUserToDatabase():
-
-    return render_template('game.html', numberGuess = 0)
-
+    username = request.form.get('username')
+    password = request.form.get('password1')
+    userInfo = [str(username), str(password)]
+    print(userInfo[0])
+    isRegistrationSuccess = RegisterUserToDatabase(userInfo)
+    if (isRegistrationSuccess):
+        return render_template('login.html', numberGuess = 0)
+    else:
+        return render_template('register.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
+    CreateDatabase()
