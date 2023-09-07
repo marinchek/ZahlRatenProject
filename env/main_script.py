@@ -148,6 +148,7 @@ def game():
     number = ''
     counterMessage = ''
     counter = 0
+    finalGuess = False
 
     if 'level' in request.args:
         level = request.args['level']
@@ -171,7 +172,10 @@ def game():
             number_guess = "Your number is not in range!"
         elif int(user_guess) == session['randomNumber']:
             number_guess = random.choice(correct_phrases)
+            finalGuess = True
+            session['counter'] += 1
             number = session['randomNumber']
+            counter = session['counter']
             session.pop('counter', None)
             session.pop('randomNumber', None)
             response = 'correct'
@@ -183,8 +187,8 @@ def game():
             session['counter'] += 1
 
     fromUntilMessage = "Guess a number between " + str(min_range) + " and " + str(max_range) + "!"
-    if ('counter' not in session):
-        counterMessage = "test"
+    if (finalGuess == True):
+        counterMessage = "Tries: " + str(counter)
     else: counterMessage = "Tries: " + str(session['counter'])
 
     return render_template('game.html', numberGuess=number_guess, fromUntilMessage=fromUntilMessage, counterMessage=counterMessage, response=response, number=number)
