@@ -200,7 +200,7 @@ def game():
 
 @app.route('/register', methods=['POST'])
 def register():
-    return render_template('register.html')  # Or redirect to another page
+    return render_template('register.html', shouldShowDialog = "True")  # Or redirect to another page
 
 @app.route('/registerUserToDatabase', methods=['POST', 'GET'])
 def registerUserToDatabase():
