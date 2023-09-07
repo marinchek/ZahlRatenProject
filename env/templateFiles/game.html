@@ -1,29 +1,34 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <title>Guess The Number</title>
-	<link rel="stylesheet" type="text/css" href="/staticFiles/game.css">
+    <link rel="stylesheet" type="text/css" href="/staticFiles/game.css">
 </head>
+
 <body>
+    <div class="logout-icon">
+        <form action="/login" method="post">
+            <button><img src="/staticFiles/ausloggen.png" alt="logout" width="50" height="50"></button>
+        </form>
+    </div>
     <div class="game-container">
         <h2>Guess The Number</h2>
-        
         {% if response != 'correct' %}
-        <p>{{fromUntilMessage}}</p>
+        <h3>{{fromUntilMessage}}</h3>
         <p>{{counterMessage}}</p>
-        
         <form method="post">
             <div>
                 <label>type your guess here:</label>
-                <input type="number" name="user_guess"/>
+                <input type="number" name="user_guess" />
                 <button type="submit">submit</button>
             </div>
         </form>
         {% endif %}
 
         {% if response == 'correct': %}
-        <div id ="correct">
+        <div id="correct">
             <h1>{{number}} was the number!</h1>
             <form action="/welcomeScreen">
                 <button>Play again!</button>
@@ -34,4 +39,5 @@
         <p>{{ numberGuess }}</p>
     </div>
 </body>
+
 </html>

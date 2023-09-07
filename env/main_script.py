@@ -126,6 +126,10 @@ app.secret_key = '300102'
 def index():
     return render_template('login.html')
 
+@app.route('/login', methods=['GET', 'POST'])
+def handleLogout():
+    return render_template('login.html')
+
 @app.route('/welcomeScreen', methods=['GET', 'POST'])
 def welcomeScreen():
     username = request.form.get('username', 0)
