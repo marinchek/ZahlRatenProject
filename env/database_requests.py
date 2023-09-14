@@ -9,7 +9,7 @@ cursor = dbConnection.cursor(buffered=True)
 goToDatabaseString = "USE Guessing_Game"	
 cursor.execute(goToDatabaseString)
 
-def CheckIfUserExists(userInfo) -> bool:
+def CheckIfUserExists(userInfo):
     username = userInfo[0]
     password = userInfo[1]
     queryString = "SELECT * FROM accounts WHERE username = '" + username + "' AND password = '" + password + "'"
@@ -21,8 +21,7 @@ def CheckIfUserExists(userInfo) -> bool:
         return False
     else:
         row = globals()["cursor"].fetchone()
-        session["accountid"] = row[0]
-        return True
+        return row[0]
     
 
 def RegisterUserToDatabase(userInfo):

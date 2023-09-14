@@ -132,15 +132,19 @@ def handleLogout():
 
 @app.route('/welcomeScreen', methods=['GET', 'POST'])
 def welcomeScreen():
-    if "username" or "password" not in session:
-        return render_template("welcomeScreen.html")
+    #if "username" or "password" not in session:
+    #    return render_template("welcomeScreen.html")
     username = request.form.get('username')
     password = request.form.get('password')
-    if (CheckIfUserExists([username, password])):
+    print(username, password)
+    userCheck = CheckIfUserExists([username, password])
+    if userCheck != False:
        session['username'] = username
+       session['accuntId'] = userCheck
        print(session['username'])
        return render_template('welcomeScreen.html')
-    else: return render_template("login.html")
+    else: 
+        return render_template("login.html")
 
 @app.route('/game', methods=['GET', 'POST'])
 def game():
