@@ -169,7 +169,7 @@ def game():
     
     if request.method == 'POST':
         user_guess = request.form.get('user_guess', 0)
-        if user_guess == "0" or user_guess == "" or user_guess == None:
+        if user_guess == "" or user_guess == None:
             number_guess = "You have not entered any number!"
         elif int(user_guess) > max_range or int(user_guess) < min_range:
             number_guess = "Your number is not in range!"
