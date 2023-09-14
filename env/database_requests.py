@@ -51,7 +51,7 @@ def SubmitHighscoreToDatabase(accountInfo):
 
 
 def GetHighscoresFromDatabase():
-    queryString = "SELECT * FROM highscores ORDER BY score DESC LIMIT 10"
+    queryString = "SELECT score, accounts.username, date_time FROM highscores LEFT JOIN accounts on highscores.account_accountid=accounts.account_id ORDER BY score ASC LIMIT 10;"
     globals()["cursor"].execute(queryString)
     globals()["dbConnection"].commit() 
     if globals()["cursor"].rowcount != 0:
@@ -60,6 +60,7 @@ def GetHighscoresFromDatabase():
     else:
         return "Get Highscores Error"
 
+           
 
 def MakeDbTransaction(transaction, *args):
     #try:

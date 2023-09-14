@@ -33,7 +33,21 @@
             <h2>{{triesMessage}}</h2>
             <form action="/welcomeScreen">
                 <button>Play again!</button>
-            </form>
+            </form>    
+            <h3>Highscores</h3>
+                <table>           
+                        <td>Tries</td>
+                        <td>Username</td>
+                        <td>Date</td> 
+                    {% for highscore in highscores %}    
+                    <tr>               
+                        <td>{{ highscore[0] }}</td>
+                        <td>{{ highscore[1] }}</td>
+                        <td>{{ highscore[2] }}</td>                            
+                    </tr>
+                    {% endfor %} 
+                </table>    
+            
         </div>
         {% endif %}
 

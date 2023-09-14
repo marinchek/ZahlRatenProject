@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, session
 from random import randint, random
 from database_requests import *
 import random
+import time
  
 #---------------------------------------------------------------------Definieren von Variablen zur Ausgabe von Phrasen---------------------------------------------------------------------
 #Phrasen, die ausgegeben werden, wenn der Spieler zu niedrig geraten hat
@@ -124,6 +125,10 @@ app.secret_key = '300102'
 
 #---------------------------------------------Start Definition der Routen---------------------------------------------
 def index():
+    if 'loggedIn' in session: session.pop('loggedIn')
+    if 'startTime' in session: session.pop('startTime')
+    if 'accountId' in session: session.pop('accountId')
+    if 'username' in session: session.pop('username')
     return render_template('login.html')
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -132,17 +137,23 @@ def handleLogout():
 
 @app.route('/welcomeScreen', methods=['GET', 'POST'])
 def welcomeScreen():
+    if 'loggedIn' in session: 
+        return  render_template('welcomeScreen.html', highscores = GetHighscoresFromDatabase())
     #if "username" or "password" not in session:
     #    return render_template("welcomeScreen.html")
     username = request.form.get('username')
     password = request.form.get('password')
-    print(username, password)
+    if " " in username or " " in password or ";" in username or ";" in password: return render_template('login.html')
     userCheck = CheckIfUserExists([username, password])
     if userCheck != False:
        session['username'] = username
-       session['accuntId'] = userCheck
+       session['accountId'] = userCheck
+       session['loggedIn'] = True
+       session['startTime'] = time.time()
        print(session['username'])
-       return render_template('welcomeScreen.html')
+
+
+       return render_template('welcomeScreen.html', highscores = GetHighscoresFromDatabase())
     else: 
         return render_template("login.html")
 
@@ -180,9 +191,14 @@ def game():
         elif int(user_guess) == session['randomNumber']:
             number_guess = random.choice(correct_phrases)
             finalGuess = True
+            session['endTime'] = time.time()
             session['counter'] += 1
             number = session['randomNumber']
-            counter = session['counter']
+            counter = session['counter']    
+            playTime = session['endTime'] - session['startTime']
+            accountInfo = [session['counter'], playTime, session['accountId']]
+           
+            SubmitHighscoreToDatabase(accountInfo)
             session.pop('counter', None)
             session.pop('randomNumber', None)
             response = 'correct'
@@ -199,7 +215,7 @@ def game():
         counterMessage = "Tries: " + str(counter)
     else: counterMessage = "Tries: " + str(session['counter'])
 
-    return render_template('game.html', numberGuess=number_guess, fromUntilMessage=fromUntilMessage, counterMessage=counterMessage, response=response, number=number, triesMessage=triesMessage)
+    return render_template('game.html', numberGuess=number_guess, fromUntilMessage=fromUntilMessage, counterMessage=counterMessage, response=response, number=number, triesMessage=triesMessage, highscores=GetHighscoresFromDatabase())
 
 
 @app.route('/register', methods=['POST'])
@@ -210,6 +226,8 @@ def register():
 def registerUserToDatabase():
     username = request.form.get('username')
     password = request.form.get('password1')
+    if " " in username or " " in password or ";" in username or ";" in password: 
+        return render_template('register.html', error=True)
     userInfo = [str(username), str(password)]
     print(userInfo[0])
     isRegistrationSuccess = RegisterUserToDatabase(userInfo)

@@ -10,10 +10,24 @@
     <div class="container">
         <h2>Welcome to the Game!</h2>
         <div class="button-container">
-            <a href="/game?level=dev" class="level-button">dev</a>
             <a href="/game?level=easy" class="level-button">Start</a>
+            
+        <h3>Highscores</h3>
+            <table>           
+                    <td>Tries</td>
+                    <td>Username</td>
+                    <td>Date</td> 
+                {% for highscore in highscores %}    
+                <tr>               
+                    <td>{{ highscore[0] }}</td>
+                    <td>{{ highscore[1] }}</td>
+                    <td>{{ highscore[2] }}</td>                            
+                </tr>
+                {% endfor %} 
+            </table>    
         </div>
     </div>
+    
 </body>
 
 </html>
